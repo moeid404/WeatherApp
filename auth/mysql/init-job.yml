@@ -1,0 +1,38 @@
+# init-job.yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mysql-init-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: mysql-init-container
+        image: mysql:5.7
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: root-password
+        - name: MYSQL_AUTH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: auth-password
+        - name: MYSQL_HOST
+          value: "mysql"  # Set the MySQL Service name or hostname
+        - name: MYSQL_PORT
+          value: "3306"  # MySQL port, default is 3306
+        - name: MYSQL_USER
+          value: "authuser"  # Define the MySQL user name
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          mysql -h${MYSQL_HOST} -P${MYSQL_PORT} -uroot -p${MYSQL_ROOT_PASSWORD} <<EOF
+          CREATE DATABASE IF NOT EXISTS weatherapp;
+          CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_AUTH_PASSWORD}';
+          GRANT ALL PRIVILEGES ON weatherapp.* TO '${MYSQL_USER}'@'%';
+          FLUSH PRIVILEGES;
+          EOF
+      restartPolicy: Never
