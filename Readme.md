@@ -102,7 +102,7 @@ The **Authentication Service** is responsible for managing user authentication a
   - `deployment.yml`: Defines the deployment for the authentication service.
   - `service.yml`: Creates a ClusterIP service for internal communication.
   - `mysql/`: Contains the configuration for MySQL, including a StatefulSet, headless service, and an initialization job.
-- **Read More**: [Auth README](auth/README.md)
+- **Read More**: [Auth README](auth/Readme.md)
 
 ### 2. User Interface Service (`ui/`)
 
@@ -113,7 +113,7 @@ The **User Interface (UI) Service** provides the front-end for users to interact
   - `service.yml`: Creates a ClusterIP service for internal communication.
   - `ingress.yml`: Configures the Ingress to expose the UI service via HTTPS.
   - `tls.crt` and `tls.key`: Self-signed SSL certificate and key files for securing the Ingress.
-- **Read More**: [UI README](ui/README.md)
+- **Read More**: [UI README](ui/Readme.md)
 
 ### 3. Weather Service (`weather/`)
 
@@ -122,7 +122,7 @@ The **Weather Service** retrieves weather data from an external API and makes it
 - **Files**:
   - `deployment.yml`: Defines the deployment for the Weather Service.
   - `service.yml`: Creates a ClusterIP service for internal communication.
-- **Read More**: [Weather README](weather/README.md)
+- **Read More**: [Weather README](weather/Readme.md)
 
 ## Prerequisites
 
